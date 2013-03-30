@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags comment_tags disqus_tags %}
+{% load url from future %}
+
+
+{% block main %}
+    <h3>Deje sus comentario acerca de {{ page.title }}</h3>
+
+    {% comments_for page %}
+{% endblock %}

@@ -1,0 +1,606 @@
+/*
+ * Timeline Design
+ * Copyright Félix Bayart
+ * All rights reserved
+ */
+
+
+/* ===== Fonts ========================================================
+   Author: Yukulelix
+   ========================================================================== */
+@font-face {
+    font-family: 'EntypoRegular';
+    src: url('entypo-webfont.eot');
+    src: url('entypo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('entypo-webfont.woff') format('woff'),
+         url('entypo-webfont.ttf') format('truetype'),
+         url('entypo-webfont.svg#EntypoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* ===== Basic Styles ========================================================
+   Author: Yukulelix
+   ========================================================================== */
+.responsive-timeline { 
+	padding: 0px;
+	margin: 0;
+	font-family:arial; 
+	font-size:13px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 300;
+}
+
+.responsive-timeline .container	{
+	width:90%;
+	margin: 0px auto;
+	position: relative;
+}
+
+.responsive-timeline h1 {
+	font-size: 21px;
+	font-variant: small-caps;
+}
+
+.responsive-timeline .icon{
+	font-family: 'EntypoRegular';
+}
+
+/*
+//Timeline
+*/
+.responsive-timeline .timeline_container{
+   width: 16px;
+   text-align: center;
+   margin: 0 auto;
+   cursor:pointer;
+   display: block;
+}
+.responsive-timeline .timeline{        
+	margin: 0 auto;
+	display: block;
+	float: left;
+	height: 100%;
+	left: 50%;
+	position: absolute;
+	width: 2px;
+}
+
+/*
+//Article Content
+*/
+.responsive-timeline .content{
+	padding:8px;
+	position: relative;
+}
+/*
+//Article Tags
+*/
+.responsive-timeline .tags{
+	font-weight: 800;
+	width: 100%;
+	top: -1px;
+	position: absolute;
+	line-height: 30px;
+	left: 0px;
+}
+.responsive-timeline .tags .icon{
+	position: absolute;
+	top: 0;
+	padding: 0 6px;
+	font-size: 30px;
+	font-weight: 500;
+	text-shadow: none;
+	cursor: pointer;
+	height: 34px;
+	border-radius: 4px 0px 0 0;
+}
+.responsive-timeline .right .tags .icon{
+	right: 0px;
+	border-radius: 0 5px 0 5px;
+}
+.responsive-timeline .left .tags .icon{
+	left: 0px;
+	border-radius: 5px 0 5px 0;
+}
+.responsive-timeline .tags .tags-container{
+	text-shadow: none;
+	border-radius: 5px 5px 0 0;
+	height:0;
+	padding-left: 30px;
+	overflow: hidden;
+}
+.responsive-timeline .right .tags .tags-container{
+	padding-left: 0px;
+	padding-right: 30px;
+}
+.responsive-timeline .tags .tag{
+	margin: 0 10px;
+	border-radius: 10px;
+	padding: 2px 7px;
+	cursor: pointer;
+}
+/*
+//Article Comments
+*/
+.responsive-timeline .comments-container{
+	overflow: hidden;
+}
+.responsive-timeline .comment-item{
+	position: relative;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 5px;
+	font-weight: 600;
+}
+.responsive-timeline .comment-item .avatar{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.responsive-timeline .comment-item h1{
+	font-size: 16px;
+	text-align: left;
+	width: 320px;
+	line-height: 37px;
+}
+.responsive-timeline .comment-item h1 a{
+	text-decoration: none;
+	font-size: 21px;
+}
+.responsive-timeline .comment-item .comment-meta{
+	font-style: italic;
+	font-weight: 500;
+	text-shadow: none;
+	text-align: right;
+}
+/*
+//Article Footer
+*/
+.responsive-timeline footer{
+	position: relative;
+	height: 65px;
+	margin-top: 10px;
+}
+.responsive-timeline footer .embossed{
+	position: absolute;
+	height: 40px;
+	bottom:-1px;
+	left:0px;
+	width: 100%;
+	border-radius: 0px 0px 5px 5px;
+}
+.responsive-timeline footer .comments-toggle .icon{
+	position: absolute;
+	top: -2px;
+	left: 8px;
+	font-size: 30px;
+}
+.responsive-timeline footer .author{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	border-radius: 0px 0px 0px 5px;
+	margin-right: 10px;
+	padding: 0px 7px 0px 45px;
+	text-decoration: none;
+	float: left;
+	font-weight: 800;
+	line-height: 40px;
+}
+.responsive-timeline footer .author img{
+	height: 40px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 0px 0px 0px 5px;
+}
+.responsive-timeline footer .date{
+	padding: 0 10px;
+	text-shadow: none;
+	font-weight: 500;
+	position: absolute;
+	top: -10px;
+	right: 0px;
+	font-style: italic;
+}
+.responsive-timeline footer .comments-toggle{
+	top: -13px;
+	position: absolute;
+	border-radius: 10px;
+	margin-right: 10px;
+	padding: 0px 5px 0px 25px;
+	text-decoration: none;
+	text-shadow: none;
+	float: left;
+	font-weight: 800;
+	line-height: 25px;
+}
+.responsive-timeline footer .link{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	height: 36px;
+	text-decoration: none;
+	line-height: 40px;
+	border-radius: 0px 0px 5px 0px;
+	padding: 2px 10px 2px 30px;
+}
+.responsive-timeline footer .link .icon{
+	font-size: 40px;
+	position: absolute;
+	left: 5px;
+	top: -2px;
+}
+/* ===== Top Styles ========================================================
+   Author: Yukulelix
+   ========================================================================== */
+.responsive-timeline .containertop	{
+	width:90%;
+	margin: 20px auto 0px auto;
+	position: relative;
+	border-radius: 5px;
+}
+
+.responsive-timeline .containertop .tags{
+	width:100%; 	
+}
+
+.responsive-timeline .containertop .cover{
+	width: 100%;
+	margin-top: -1px;
+	border-radius: 5px 5px 0 0;
+}
+
+.responsive-timeline .containertop .arrow{
+	position: absolute;
+	bottom: -7px;
+	left: 50%;
+	margin-left:-6px;
+	width: 14px;
+	height: 7px;
+	z-index: 1;
+}
+
+.responsive-timeline .containertop footer .comments-toggle{
+	left: 15px;
+}
+
+.responsive-timeline .containertop footer .date{
+	right: 0px;
+}
+
+.responsive-timeline .containertop footer .embossed{
+	width:100%;
+}
+
+/* ===== Items Styles ========================================================
+   Author: Yukulelix
+   ========================================================================== */
+.responsive-timeline .item {
+	position: absolute;
+	width: 48%;
+	float: left;
+	margin-top:10px;
+	min-height:50px;
+	border-radius: 5px;
+	text-align:justify;
+	word-wrap:break-word; 
+	left:0;
+}
+
+.responsive-timeline .item.right {
+	left: 52%;
+}
+
+.responsive-timeline .item .content h1{
+	text-align: center;
+}
+
+.responsive-timeline .item .corner{
+	background-repeat: no-repeat;
+	display: block;
+	height: 14px;
+	width: 7px;
+	top: -10px;
+	position: absolute;
+	z-index:2;
+}
+.responsive-timeline .item.right .corner{
+	left: -7px;
+}
+.responsive-timeline .item.left .corner {
+	right: -7px;
+}
+.responsive-timeline .circle{
+	display: block;
+	position: absolute;
+	height: 13px;
+	width: 12px;
+	margin-left: -5px;
+	left: 50%;
+}
+.responsive-timeline .item .cover{
+	width: 100%;
+	margin-top: -1px;
+	border-radius: 5px 5px 0 0;
+}
+
+.responsive-timeline .item.left footer .comments-toggle{
+	left: 15px;
+}
+
+.responsive-timeline .item.right footer .comments-toggle{
+	right: 15px;
+}
+
+.responsive-timeline .item.left footer .date{
+	right: 0px;
+}
+
+.responsive-timeline .item.right footer .date{
+	left: 0px;
+	right: auto;
+}
+
+.responsive-timeline .loadMore{
+	width:90%;
+	margin: 0px auto;
+	position: relative;
+	font-size: 20px;
+	padding: 10px 0;
+	text-align: center;
+	cursor: pointer;
+}
+
+.responsive-timeline .loadMore.loading p{
+	margin-right: 10px;
+}
+.responsive-timeline .loadMore.loading p{
+	background: url(../images/loading.gif) no-repeat right center;
+}
+
+.responsive-timeline .loadMore p{
+	margin: 0;
+}
+
+@media only screen and (max-width: 767px) {
+	.responsive-timeline .item{
+		width: 100%;
+		float: left;
+		left: auto;
+		right: auto;
+		position: relative;
+	}
+	.responsive-timeline .item .corner{
+		display: none;
+	}
+	.responsive-timeline .timeline{
+		display: none;
+	}
+	
+}
+
+
+/* ===== Themes =============================================================
+   Author: Félix Bayart
+   ========================================================================== */
+
+/* light theme */
+.responsive-timeline.light{
+	text-shadow: 1px 1px #fff;
+}
+.responsive-timeline.light h1{
+	color: #645972;
+}
+.responsive-timeline.light .timeline{        
+	background-color:#f6f6f6;
+	box-shadow: white 0px 0 10px;
+}
+.responsive-timeline.light .tags{
+	color: #AEAEAE;
+}
+.responsive-timeline.light .tags .icon{
+	background-color: rgba(0,0,0,.4);
+	color: #FBFBFB;
+}
+.responsive-timeline.light .tags .tags-container{
+	background: rgba(0,0,0,0.5);
+	color: white;
+}
+.responsive-timeline.light .tags .tag:hover{
+	background-color: rgba(50, 50, 50, 0.5);
+}
+.responsive-timeline.light .comment-item{
+	background-color: #d8d8d8;
+	box-shadow: inset 1px 1px 1px #bababa;
+	text-shadow: 1px 1px white;
+}
+.responsive-timeline.light .comment-item .avatar{
+	border: 5px solid #aeaeae;
+}
+.responsive-timeline.light .comment-item h1 a{
+	color: #645972;
+}
+.responsive-timeline.light .comment-item .comment-meta{
+	color: #645972;
+}
+.responsive-timeline.light footer{
+	border-top: 1px solid #D8D8D8;
+}
+.responsive-timeline.light footer .embossed{
+	background-color: #d8d8d8;
+	box-shadow: inset 1px 1px 1px #bababa;
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.light footer .comments-toggle:hover{
+	background: #d8d8d8;
+	box-shadow: inset 1px 1px 1px #bababa;
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.light footer .author{
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.light footer .date{
+	background:transparent url(../images/light/cross_scratches.png) repeat;
+	color: #aeaeae;
+}
+.responsive-timeline.light footer .comments-toggle{
+	background:transparent url(../images/light/cross_scratches.png) repeat;
+	color: #aeaeae;
+}
+.responsive-timeline.light footer .link{
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.light .containertop	{
+	background:transparent url(../images/light/cross_scratches.png) repeat; 
+	color: #48484b;
+}
+
+.responsive-timeline.light .containertop .cover{
+	border-bottom: 1px solid #fff;
+	box-shadow: #E6E6E6 0px 1px;
+}
+
+.responsive-timeline.light .containertop .arrow{
+	background:transparent url(../images/light/bottom.png) repeat; 
+	color: #48484b;
+}
+.responsive-timeline.light .item {
+	background:transparent url(../images/light/cross_scratches.png) repeat;
+	color: #48484b;
+}
+
+.responsive-timeline.light .item .corner{
+	background-image: url("../images/light/left.png");
+}
+.responsive-timeline.light .item.left .corner {
+    background-image: url("../images/light/right.png");
+}
+.responsive-timeline.light .circle{
+	background-image: url("../images/light/circle.png");
+}
+.responsive-timeline.light .item .cover{
+	border-bottom: 1px solid #fff;
+	box-shadow: #E6E6E6 0px 1px;
+}
+.responsive-timeline.light .loadMore{
+	background: transparent url(../images/light/cross_scratches.png) repeat;
+	color: #645972;
+}
+
+
+
+
+/* dark theme */
+.responsive-timeline.dark{
+	text-shadow: 1px 1px #000;
+}
+.responsive-timeline.dark h1{
+	color: #9ba68d;
+}
+.responsive-timeline.dark .timeline{        
+	background-color:#0c0c0c;
+	box-shadow: black 0px 0 10px;
+}
+.responsive-timeline.dark .tags{
+	color: #AEAEAE;
+}
+.responsive-timeline.dark .tags .icon{
+	background-color: rgba(0,0,0,.4);
+	color: #FBFBFB;
+}
+.responsive-timeline.dark .tags .tags-container{
+	background: rgba(0,0,0,0.5);
+	color: white;
+}
+.responsive-timeline.dark .tags .tag:hover{
+	background-color: rgba(50, 50, 50, 0.5);
+}
+.responsive-timeline.dark .comment-item{
+	background-color: #272727;
+	box-shadow: inset 1px 1px 1px #454545;
+	text-shadow: 1px 1px #000;
+}
+.responsive-timeline.dark .comment-item .avatar{
+	border: 5px solid #aeaeae;
+}
+.responsive-timeline.dark .comment-item h1 a{
+	color: #9ba68d;
+}
+.responsive-timeline.dark .comment-item .comment-meta{
+	color: #9ba68d;
+}
+.responsive-timeline.dark footer{
+	border-top: 1px solid #272727;
+}
+.responsive-timeline.dark footer .embossed{
+	background-color: #272727;
+	box-shadow: inset 1px 1px 1px #454545;
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.dark footer .comments-toggle:hover{
+	background: #272727;
+	box-shadow: inset 1px 1px 1px #454545;
+	color: #fbfbfb;
+	text-shadow: 1px 1px #969696;
+}
+.responsive-timeline.dark footer .author{
+	color: #fff;
+	text-shadow: none;
+}
+.responsive-timeline.dark footer .date{
+	background:transparent url(../images/dark/cross_scratches.png) repeat;
+	color: #aeaeae;
+}
+.responsive-timeline.dark footer .comments-toggle{
+	background:transparent url(../images/dark/cross_scratches.png) repeat;
+	color: #aeaeae;
+}
+.responsive-timeline.dark footer .link{
+	color: #fff;
+	text-shadow: none;
+}
+.responsive-timeline.dark .containertop	{
+	background:transparent url(../images/dark/cross_scratches.png) repeat; 
+	color: #b7b7b4;
+}
+
+.responsive-timeline.dark .containertop .cover{
+	border-bottom: 1px solid #000;
+	box-shadow: #191919 0px 1px;
+}
+
+.responsive-timeline.dark .containertop .arrow{
+	background:transparent url(../images/dark/bottom.png) repeat; 
+	color: #B7B7B4;
+}
+.responsive-timeline.dark .item {
+	background:transparent url(../images/dark/cross_scratches.png) repeat;
+	color: #B7B7B4;
+}
+
+.responsive-timeline.dark .item .corner{
+	background-image: url("../images/dark/left.png");
+}
+.responsive-timeline.dark .item.left .corner {
+    background-image: url("../images/dark/right.png");
+}
+.responsive-timeline.dark .circle{
+	background-image: url("../images/dark/circle.png");
+}
+.responsive-timeline.dark .item .cover{
+	border-bottom: 1px solid #000;
+	box-shadow: #191919 0px 1px;
+}
+.responsive-timeline.dark .loadMore{
+	background: transparent url(../images/dark/cross_scratches.png) repeat;
+	color: #9ba68d;
+
+}

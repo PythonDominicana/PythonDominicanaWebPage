@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags disqus_tags %}
+{% load url from future %}
+
+{% load mezzanine_tags keyword_tags %}
+
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+    {% keywords_for page as keywords %}
+    {% for keyword in keywords %}
+        {% if not forloop.first %}, {% endif %}
+        {{ keyword }}
+    {% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+    {{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+    {% editable page.title %}{{ page.title }}{% endeditable %}
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.tinysort.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    {% load voting_tags %}
+    {% if not user.is_authenticated %}
+        <span class="label label-important">Para poder participar de la votación debe de registrarse</span>
+    {% endif %}
+    <ul class="nav nav-tabs nav-stacked" id="list1">
+        {% for child in page.children.all %}
+            {% score_for_object child.choice as score %}
+
+            <li id="item-{{ score.score }}">
+                <a>{{ child.title }}</a>
+                <div class="progress">
+                    <div id="score_{{ child.id }}" class="bar" style="width: {{ score.score }}%;"></div>
+
+                </div>
+
+                <div class="btn-group pull-right" style="margin-top: -67px; margin-right: 3px">
+                    {% vote_by_user user on child.choice as vote %}
+                    {% if user.is_authenticated %}
+                        <a id="vote_{{ child.id }}" class="btn" href="#" onclick="vote('{{ child.choice.id }}');"><i class="{% if vote %}icon-remove{% else %}icon-ok{% endif %}"></i></a>
+                    {% endif %}
+
+                    {% if child.choice.user == user %}
+                        <a class="btn" href="#" onclick="crud({{ child.choice.id }}, '{{ child.title }}')"><i class="icon-edit"></i></a>
+                    {% endif %}
+                    <a href="{{ child.get_absolute_url }}#disqus_thread" data-disqus-identifier="{% disqus_id_for child %}" class="btn"></a>
+
+                </div>
+
+            </li>
+
+
+        {% endfor %}
+    </ul>
+    {% include "generic/includes/disqus_counts.html" %}
+
+
+    {% if user.is_authenticated %}
+        <p>
+            <a class="btn" href="#" onclick="crud(0, '')" role="button" data-toggle="modal"><i class="icon-plus"></i> | Nuevo</a>
+        </p>
+    {% endif %}
+
+
+    <!-- Modal -->
+    <div id="choiceModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Choice</h3>
+        </div>
+        <form method="post">
+            <div class="modal-body">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="choice_id">
+                {{ form }}
+            </div>
+
+        </form>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $("#id_title").css("width", "100%")
+            $('ul#list1>li').tsort({attr:'id'});
+        });
+
+        function crud(id, title){
+            if (id > 0){
+                $("#choice_id").val(id);
+                $("#id_title").val(title);
+                $('#choiceModal').modal();
+            } else {
+                $("#choice_id").val(id);
+                $("#id_title").val(title);
+                $('#choiceModal').modal();
+            }
+        };
+
+        function vote(id) {
+            var direction = ( ($("#vote_"+id+" i").attr("class")=="icon-ok") ? "up" : "clear");
+
+            $.post('/polls/choice/'+id+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+                    function(data) {
+                        if (data.success == true) {
+                            $('#score_'+id).css("width",data.score.score+"%");
+                            $("#vote_"+id+" i").toggleClass("icon-ok icon-remove");
+                        } else {
+                            alert('ERROR: ' + data.error_message);
+                        }
+                    }, 'json'
+            )}
+
+
+
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags disqus_tags keyword_tags %}
+
+{% block meta_title %}{{ page.meta_title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+    {% keywords_for page as keywords %}
+    {% for keyword in keywords %}
+        {% if not forloop.first %}, {% endif %}
+        {{ keyword }}
+    {% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+    {{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+    {% editable page.title %}{{ page.title }}{% endeditable %}
+{% endblock %}
+
+{% block main %}
+
+    <ul class="nav nav-tabs nav-stacked">
+        {% for child in page.children.all %}
+
+            <li><a href="{{ child.get_absolute_url }}">{{ child.title }}</a></li>
+
+                <div class="btn-group pull-right" style="margin-top: -31px; margin-right: 3px">
+                    {% if child.qa.user == request.user %}
+                    <a class="btn" href="#" onclick="crud({{ child.qa.id }}, '{{ child.title }}')"><i class="icon-edit"></i></a>
+                    {% endif %}
+                    <a href="{{ child.get_absolute_url }}#disqus_thread" data-disqus-identifier="{% disqus_id_for child %}" class="btn"></a>
+
+                </div>
+
+
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+        <p>
+            <a class="btn" href="#" onclick="crud(0, '')" role="button" data-toggle="modal"><i class="icon-plus"></i> | Nuevo</a>
+        </p>
+    {% endif %}
+
+
+    <!-- Modal -->
+    <div id="pollModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Pregunta!</h3>
+        </div>
+        <form method="post">
+            <div class="modal-body">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="poll_id">
+                {{ form }}
+            </div>
+
+        </form>
+        {% include "generic/includes/disqus_counts.html" %}
+    </div>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $("#id_title").css("width", "100%")
+        });
+
+        function crud(id, title){
+            if (id > 0){
+                $("#poll_id").val(id);
+                $("#id_title").val(title);
+                $('#pollModal').modal();
+            } else {
+                $("#poll_id").val(id);
+                $("#id_title").val(title);
+                $('#pollModal').modal();
+            }
+
+
+        };
+
+    </script>
+{% endblock %}

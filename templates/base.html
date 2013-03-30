@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+{% load pages_tags mezzanine_tags i18n %}
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="bitly-verification" content="4dc38cca57db"/>
+    <meta name="google-site-verification" content="fI6h_vbFsoblWuTdFAFEOH_Atc7yoHYDCZqb_y9Zb-M" />
+    <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+
+    {% ifinstalled mezzanine.blog %}
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}">
+        <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}">
+    {% endifinstalled %}
+
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/responsiveslides.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/dcsns_light.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/stylesheet.css"/>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/my.css">
+        {% ifinstalled cartridge.shop %}
+            <link rel="stylesheet" href="{{ STATIC_URL }}css/cartridge.css">
+        {% endifinstalled %}
+        {% block extra_css %}{% endblock %}
+    {% endcompress %}
+
+    {% compress js %}
+        <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/xmlhttprequest.js"></script>
+        <script src="{{ STATIC_URL }}js/responsiveslides.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.social.stream.wall.1.2.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.social.stream.1.4.3.js"></script>
+        <script>
+            $(function() {
+                $('.middleinput:text, textarea').addClass('xlarge');
+                $('.control-group label').addClass('control-label');
+
+
+            });
+        </script>
+
+        {% block extra_js %}{% endblock %}
+    {% endcompress %}
+    <!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+    {% block extra_head %}{% endblock %}
+
+</head>
+<body id="{% block body_id %}body{% endblock %}">
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div>
+                <a class="logo"><img src="https://lh6.googleusercontent.com/-5fYVy0oEEuE/AAAAAAAAAAI/AAAAAAAAACk/qDe2IOZrL5A/s102-c-k/photo.jpg"></a>
+                {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
+                {% if settings.SITE_TAGLINE %}<p class="tagline">{{ settings.SITE_TAGLINE }}</p>{% endif %}
+            </div>
+            <div class="nav-collapse">
+                <form action="{% url search %}" class="navbar-search pull-right">
+                    <input class="search-query" placeholder="{% trans "Search" %}" type="text" name="q" value="{{ request.REQUEST.q }}">
+                </form>
+                {% page_menu "pages/menus/dropdown.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    {% nevercache %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" data-alert="alert">
+                <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>{{ message }}
+            </div>
+        {% endfor %}
+    {% endnevercache %}
+
+
+    <h1>{% block title %}{% endblock %}</h1>
+    {% block slides %}{% endblock %}
+
+    <ul class="breadcrumb">
+        {% spaceless %}
+            {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+        {% endspaceless %}
+    </ul>
+
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="span2 left">
+            {% block left_panel %}
+                <div class="panel tree">{% page_menu "pages/menus/tree.html" %}</div>
+                <div class="panel">
+                    <p>
+                        <h6>Interesantes</h6>
+                    </p>
+                    <ul class="rslides">
+                        <li><a href="http://pulsocolectivo.com/"><img src="{{ MEDIA_URL }}pulso.jpg" alt="{{ image.description }}"/></a></li>
+                        <li><a href="http://www.developers.do/"><img src="{{ MEDIA_URL }}developer.do.png" alt="{{ image.description }}"/></a></li>
+                    </ul>
+
+                </div>
+            {% endblock %}
+        </div>
+
+        <div class="span7 middle">
+            {% block main %}{% endblock %}
+        </div>
+
+
+
+        <div class="span3 right">
+
+            {% nevercache %}
+                {% include "includes/user_panel.html" %}
+            {% endnevercache %}
+            <!--End mc_embed_signup-->
+
+                {% block right_panel %}
+                    <!-- Begin MailChimp Signup Form -->
+
+                    <div class="panel">
+                        <form action="http://python.us6.list-manage.com/subscribe/post?u=05fa0ca51917b8c0f10b137ca&amp;id=869e913b5f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <label for="mce-EMAIL"><h6>Suscríbase a nuestra lista de correo</h6></label>
+                            <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="dirección de correo electrónico" required>
+                            <div class="clear"><input type="submit" value="Suscribirse" name="subscribe" id="mc-embedded-subscribe" class="btn"></div>
+                        </form>
+                    </div>
+
+                    <div class="panel">
+                    <h6>Siguenos en</h6>
+                    <a href="https://plus.google.com/u/0/b/115629166357246025614/115629166357246025614/posts"><img src="{{ STATIC_URL }}img/google.png" style="width: 230px; margin-bottom: 10px"></a>
+                    <a href="https://twitter.com/pythondominican"><img src="{{ STATIC_URL }}img/twitter.png" style="width: 230px"></a>
+                    </div>
+
+                    <!-- init social streaming -->
+                    <div class="panel">
+
+                        <h6>Socials</h6>
+                        <div id="social-stream"></div>
+
+                        <script type="text/javascript">
+                            $(document).ready(function($){
+                                $('#social-stream').dcSocialStream({
+                                    feeds: {
+                                        twitter: {
+                                            id: 'pythondominican'
+                                        },
+                                        rss: {
+                                            id: 'http://python.do/blog/feeds/rss/'
+                                        },
+                                        google: {
+                                            id:'115629166357246025614',
+                                            api_key: 'AIzaSyAuLLQ7hfJMvl5IDVV3WL737zu7OXq1zxI'
+                                        },
+                                        youtube: {
+                                            id: 'pythondominicana'
+                                        }
+                                    },
+                                    twitterId: 'pythondominican',
+                                    max:'limit',
+                                    iconPath: '{{ STATIC_URL }}images/dcsns-dark/',
+                                    imagePath: '{{ STATIC_URL }}images/dcsns-light-1/'
+                                });
+                            });
+                        </script>
+                    </div>
+                    <!-- end social streaming -->
+
+                    {% ifinstalled mezzanine.twitter %}
+                        {% include "twitter/tweets.html" %}
+                    {% endifinstalled %}
+                {% endblock %}
+
+        </div>
+
+
+    </div>
+</div>
+
+<footer class="navbar-inner">
+    <div class="container">
+        {% page_menu "pages/menus/footer.html" %}
+        <br style="clear:both">
+
+    <p>
+    {% trans "Powered by" %}
+    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
+    <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
+    {% trans "and" %}
+    <a href="http://www.djangoproject.com">Django</a>
+    <span class="separator">|</span>
+    {% trans "Theme by" %} <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>
+    {% ifinstalled mezzanine.mobile %}
+    <span class="separator">|</span>
+{#    <a href="{% url set_device "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>#}
+    {% endifinstalled %}
+</p>
+
+    </div>
+</footer>
+
+{% include "includes/footer_scripts.html" %}
+
+</body>
+</html>

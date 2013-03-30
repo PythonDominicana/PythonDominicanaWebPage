@@ -1,0 +1,112 @@
+
+.logo{
+    float: left;
+    margin: 10px 10px 10px 0px;
+}
+
+.navbar .brand{
+    margin-top: 30px;
+}
+
+.tagline {
+    margin: 60px 5px 0px -190px;
+}
+
+.navbar .nav.pull-right{
+    margin-top: 70px;
+    margin-right: -250px;
+}
+
+.navbar-search{
+    margin-top: 30px;
+}
+
+body footer {
+
+}
+
+.stream li.dcsns-google .section-title {
+    color: #000000;
+}
+
+/*goto_comment_timeline*/
+
+.responsive-timeline footer .comments-go .icon{
+    position: absolute;
+    top: -2px;
+    left: 8px;
+    font-size: 30px;
+}
+
+.responsive-timeline footer .comments-go{
+    top: -13px;
+    position: absolute;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 0px 5px 0px 25px;
+    text-decoration: none;
+    text-shadow: none;
+    float: left;
+    font-weight: 800;
+    line-height: 25px;
+}
+
+.responsive-timeline .containertop footer .comments-go{
+    left: 15px;
+}
+
+.responsive-timeline .item.left footer .comments-go{
+    left: 15px;
+}
+
+.responsive-timeline .item.right footer .comments-go{
+    right: 15px;
+}
+
+.responsive-timeline.light footer .comments-go:hover{
+    background: #d8d8d8;
+    box-shadow: inset 1px 1px 1px #bababa;
+    color: #fbfbfb;
+    text-shadow: 1px 1px #969696;
+}
+
+.responsive-timeline.light footer .comments-go{
+    background:transparent url(../images/light/cross_scratches.png) repeat;
+    color: #aeaeae;
+}
+
+.responsive-timeline.dark footer .comments-go:hover{
+    background: #272727;
+    box-shadow: inset 1px 1px 1px #454545;
+    color: #fbfbfb;
+    text-shadow: 1px 1px #969696;
+}
+
+.responsive-timeline.dark footer .comments-go{
+    background:transparent url(../images/dark/cross_scratches.png) repeat;
+    color: #aeaeae;
+}
+
+.responsive-timeline footer{
+    height: 0px;
+}
+
+.responsive-timeline .container footer {
+    height: 20px;
+}
+
+.responsive-timeline .container footer .date{
+    top: 15px;
+}
+
+.navbar-inner a {
+    color: #ffffff;
+}
+
+footer p {
+    color: RED;
+}
+
+.responsive-timeline .tags .tag{
+    color: #ffffff;
+}

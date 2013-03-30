@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags comment_tags disqus_tags %}
+{% load url from future %}
+
+
+{% block main %}
+    <h3>Q&A para "{{ page.title }}"</h3>
+
+    {% comments_for page %}
+{% endblock %}

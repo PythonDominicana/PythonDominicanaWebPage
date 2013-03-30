@@ -1,0 +1,25 @@
+
+#slides{
+    box-shadow: 5px 5px 5px 5px #888888;
+}
+
+#slides .pagination{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.slides_container {
+    width:100%;
+    height:228px;
+}
+.slides_container div {
+    width:100%;
+    height:228px;
+    display:block;
+}
+
+#slides .slides_container div img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}

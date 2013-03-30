@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags %}
+
+
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+{#  {% block title %}{% trans "Home" %}{% endblock %} #}
+
+{% block extra_css %}
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/timeline.js"></script>
+    <script>
+        $(function () {
+            $('.responsive-timeline').rTimeline({theme:'light'});
+        });
+    </script>
+
+{% endblock %}
+
+
+{% block slides %}
+
+    <div class="row" style="box-shadow: 5px 5px 5px 5px #888888;">
+        <div class="span12">
+            <ul class="rslides">
+                {% for image in slides %}
+                    <li><img src="{{ MEDIA_URL }}{% thumbnail image.file 1170 228 %}" alt="{{ image.description }}"/>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $(".rslides").responsiveSlides();
+            });
+        </script>
+    </div>
+
+
+
+{% endblock %}
+
+{% block breadcrumb_menu %}
+    <li class="active">{% trans "Home" %}</li>
+{% endblock %}
+
+
+
+{% block main %}
+
+    <div class="responsive-timeline light">
+        <!--begin the top post -->
+        {% with posts|first as  post_top %}
+            <div class="containertop">
+
+                {% if post_top.featured_image %}
+
+                    <div class="tags">
+                        <span class="icon">C</span>
+
+                        <div class="tags-container" style="height: 0px;">
+                            {% for tag in post_top.category_list %}
+                                <a href="blog/category/{{ tag }}/"><span class="tag">{{ tag }}</span></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    <img class="cover" src="{{ MEDIA_URL }}{{ post_top.featured_image }}">
+                {% endif %}
+
+                <div class="content">
+                    <h1>{{ post_top.title }}</h1>
+                    {{ post_top.description_from_content|safe}}
+                    <a href="{{ post_top.get_absolute_url }}">Leer mas..</a>
+                </div>
+               {% comment %} <div class="comments-container">
+                    <div class="comment-item" id="comment-1">
+                        <header>
+
+                        </header>
+                        <section>
+                            <p>
+                                {% if post_top.allow_comments %}{% comments_for post_top %}{% endif %}
+                            </p>
+
+
+                        </section>
+                    </div>
+
+                </div>{% endcomment %}
+                <footer>
+                    <span class="corner"></span>
+                    <span class="date">{{ post_top.publish_date_since }}</span>
+                    <a href="{{ post_top.get_absolute_url }}#disqus_thread"
+                       data-disqus-identifier="{% disqus_id_for post_top %}" class="comments-go"><span class="icon">:</span>10</a>
+                    <span class="embossed">
+                        <a href="blog/author/{{ post_top.user }}/" class="author"><img src="{# imagen del auhot #}"><span>{{ post_top.user }}</span></a>
+                        <a class="link" href="{{ post_top.get_absolute_url }}">Ir al articulo<span class="icon">&gt;</span></a>
+                    </span>
+                </footer>
+                <span class="arrow"></span>
+            </div>
+        {% endwith %}
+        <!-- end the top post-->
+
+        <div class="container" style="height: 1586px;">
+
+            <div class="timeline_container">
+                <div class="timeline">
+                    <div class="plus"></div>
+                </div>
+            </div>
+
+            {% for post in posts %}
+                {% if post != posts|first %}
+
+                    <div class="item {% cycle 'left' 'right' %}" style="top: 0px; left: 0px;">
+
+                        {% if post.featured_image %}
+                            <div class="tags">
+                                <span class="icon">C</span>
+
+                                <div class="tags-container" style="height: 0px;">
+                                    {% for tag in post.category_list %}
+                                        <a href="blog/category/{{ tag }}/"><span class="tag">{{ tag }}</span></a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <img class="cover" src="{{ MEDIA_URL }}{{ post.featured_image }}">
+                        {% endif %}
+
+                        <div class="content">
+                            <h1>{{ post.title }}</h1>
+                            {{ post.description_from_content|safe}}
+                            <a href="{{ post_top.get_absolute_url }}">Leer mas..</a>
+                        </div>
+
+                       {% comment %} <div class="comments-container" style="height: 0px;">
+                            <div class="comment-item" id="comment-1">
+                                <header>
+
+                                </header>
+                                <section>
+                                    <p>
+                                        {% if post.allow_comments %}{% comments_for post %}{% endif %}
+                                    </p>
+
+
+                                </section>
+                            </div>
+
+                          </div>{% endcomment %}
+
+                        <footer>
+                            <span class="corner"></span>
+                            <span class="date">{{ post.publish_date_since }}</span>
+                            <a href="{{ post.get_absolute_url }}#disqus_thread"
+                               data-disqus-identifier="{% disqus_id_for post %}" class="comments-go"><span class="icon">:</span>10</a>
+                    <span class="embossed">
+                        <a href="blog/author/{{ post_top.user }}/" class="author"><img src="{# imagen del auhot #}"><span>{{ post.user }}</span></a>
+                        <a class="link" href="{{ post.get_absolute_url }}">Ir al articulo<span class="icon">&gt;</span></a>
+                    </span>
+                        </footer>
+
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <!-- -->
+
+            {% comment %} <span class="circle" style="top: 434px;"></span>
+            <span class="circle" style="top: 454px;"></span>
+            <span class="circle" style="top: 960px;"></span>
+            <span class="circle" style="top: 980px;"></span>
+            <span class="circle" style="top: 1470px;"></span>
+            <span class="circle" style="top: 1490px;"></span>
+{% endcomment %}
+        </div>
+
+        {% comment %}<div class="loadMore loading">
+                <p>Load more posts</p>
+            </div>
+            </div>{% endcomment %}
+
+        {% include "generic/includes/disqus_counts.html" %}
+
+    </div>
+
+
+
+
+
+{% endblock %}
+
