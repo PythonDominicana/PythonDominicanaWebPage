@@ -267,6 +267,7 @@ INSTALLED_APPS = (
     "mezzanine_slides",
     "voting",
     "qa",
+    "south"
 
 )
 
@@ -388,3 +389,5 @@ DEFAULT_CHARSET = 'utf-8'
 MZEVENTS_GOOGLE_MAPS_DOMAIN = "maps.google.com.do"
 
 DEV_SERVER = True
+
+ALLOWED_HOSTS = "python.do"
