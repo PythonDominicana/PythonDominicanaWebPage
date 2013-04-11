@@ -7,7 +7,7 @@ DATABASES = {
         # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         # DB name or path to database file if using sqlite3.
-        "NAME": "python_do",
+        "NAME": "pydo",
         # Not used with sqlite3.
         "USER": "eneldoserrata",
         # Not used with sqlite3.
@@ -18,4 +18,6 @@ DATABASES = {
         "PORT": "",
         }
 }
+
+ALLOWED_HOSTS = "python.do"
 

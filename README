@@ -1,1 +1,12 @@
 python.do web site repository
+
+Use this site with
+Python 2.7
+Django version 1.4.3
+Mezzanine version 1.2.4
+
+
+update change to last version
+add column in db page_page.in_sitemap (boolean)
+add column in db blog_blogpost.rating_sum (numeric)
+add column in db  blog_blogpost.in_sitemap (boolean)
